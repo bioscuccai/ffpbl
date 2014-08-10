@@ -24,10 +24,13 @@ private slots:
 
 	void on_actionCopyLink_triggered();
 
+	void on_searchButton_clicked();
+
 private:
 	Ui::MainWindow *ui;
 	QSqlQueryModel *bookmarkModel;
 	QSqlDatabase db;
+	QString queryString;
 };
 
 #endif // MAINWINDOW_H
