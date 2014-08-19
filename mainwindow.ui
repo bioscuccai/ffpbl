@@ -30,6 +30,16 @@
          <widget class="QLineEdit" name="searchEdit"/>
         </item>
         <item>
+         <widget class="QLabel" name="categoryLabel">
+          <property name="text">
+           <string>Cat.:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="categoryLine"/>
+        </item>
+        <item>
          <widget class="QPushButton" name="searchButton">
           <property name="enabled">
            <bool>false</bool>
@@ -95,6 +105,12 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>searchEdit</tabstop>
+  <tabstop>categoryLine</tabstop>
+  <tabstop>searchButton</tabstop>
+  <tabstop>placeTable</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -105,6 +121,22 @@
    <hints>
     <hint type="sourcelabel">
      <x>597</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1148</x>
+     <y>59</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>categoryLine</sender>
+   <signal>returnPressed()</signal>
+   <receiver>searchButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>860</x>
      <y>59</y>
     </hint>
     <hint type="destinationlabel">

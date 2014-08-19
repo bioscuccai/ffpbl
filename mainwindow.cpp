@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->placeTable->addAction(ui->actionCopyLink);
 	//ui->placeTable->addAction(ui->actionOpenUrl);
 
-	queryString="select title, (select url from moz_places where id=fk) as url, (select title from moz_bookmarks as cat where cat.id=bmark.parent) as folder, datetime(substr(dateAdded,0,11),'unixepoch') as added from moz_bookmarks as bmark where type=1 and title like '%'||:searchtext||'%' order by folder, title";
+	queryString="select title, (select url from moz_places where id=fk) as url, (select title from moz_bookmarks as cat where cat.id=bmark.parent) as folder, datetime(substr(dateAdded,0,11),'unixepoch') as added from moz_bookmarks as bmark where type=1 and title like '%'||:searchtext||'%' and folder like '%'||:cat||'%' order by folder, title";
 }
 
 MainWindow::~MainWindow(){
@@ -53,6 +53,7 @@ void MainWindow::on_actionOpen_triggered(){
 	QSqlQuery q;
 	q.prepare(queryString);
 	q.bindValue(":searchtext", "");
+	q.bindValue(":cat", "");
 	q.exec();
 
 	bookmarkModel=new QSqlQueryModel();
@@ -85,10 +86,12 @@ void MainWindow::on_actionCopyLink_triggered(){
 
 void MainWindow::on_searchButton_clicked(){
 	QString searchText=ui->searchEdit->text();
+	QString catText=ui->categoryLine->text();
 
 	QSqlQuery q;
 	q.prepare(queryString);
 	q.bindValue(":searchtext", searchText);
+	q.bindValue(":cat", catText);
 	q.exec();
 
 	bookmarkModel->setQuery(q);
